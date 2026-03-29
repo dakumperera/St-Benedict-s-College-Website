@@ -1,229 +1,289 @@
-'use client';
+"use client";
 
-import { Navbar } from '@/components/navbar';
-import { Footer } from '@/components/footer';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
-import { Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  Send,
+  GraduationCap,
+  Trophy,
+  BookOpen,
+} from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    setFormData({ name: '', email: '', message: '' });
+    setFormData({ name: "", email: "", subject: "", message: "" });
     setTimeout(() => setSubmitted(false), 5000);
   };
 
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-background">
-        {/* Hero Section */}
-        <section className="bg-primary text-primary-foreground py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
-            <p className="text-lg opacity-90">
-              Get in touch with St. Benedict's College
-            </p>
+      <main className="min-h-screen bg-background text-foreground">
+        {/* Modern Hero Section */}
+        <section className="relative py-24 bg-primary overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/img/pattern.png')] opacity-10 mix-blend-overlay"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-primary via-primary/90 to-blue-900/90" />
+          <div className="container mx-auto px-4 relative z-10 text-center text-primary-foreground">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-5xl md:text-6xl font-bold mb-6 tracking-tight"
+            >
+              Contact Us
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-xl opacity-90 max-w-2xl mx-auto font-light"
+            >
+              We are here to assist you. Reach out to St. Benedict's College for
+              any inquiries or support.
+            </motion.p>
           </div>
         </section>
 
-        {/* Main Content */}
-        <section className="py-16 md:py-24 bg-background">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
-              {/* Quick Contact Cards */}
-              <Card className="p-6">
-                <Phone className="w-8 h-8 text-primary mb-4" />
-                <h3 className="font-semibold text-foreground mb-2">Phone</h3>
-                <p className="text-muted-foreground text-sm">
-                  <a href="tel:+94112541234" className="hover:text-primary transition">
-                    +94 (11) 254 1234
-                  </a>
-                </p>
-                <p className="text-muted-foreground text-sm">
-                  <a href="tel:+94112542567" className="hover:text-primary transition">
-                    +94 (11) 254 2567
-                  </a>
-                </p>
-              </Card>
-
-              <Card className="p-6">
-                <Mail className="w-8 h-8 text-primary mb-4" />
-                <h3 className="font-semibold text-foreground mb-2">Email</h3>
-                <p className="text-muted-foreground text-sm">
-                  <a href="mailto:info@stbenedictscollege.lk" className="hover:text-primary transition">
-                    info@stbenedictscollege.lk
-                  </a>
-                </p>
-                <p className="text-muted-foreground text-sm">
-                  <a href="mailto:admissions@stbenedictscollege.lk" className="hover:text-primary transition">
-                    admissions@stbenedictscollege.lk
-                  </a>
-                </p>
-              </Card>
-
-              <Card className="p-6">
-                <MapPin className="w-8 h-8 text-primary mb-4" />
-                <h3 className="font-semibold text-foreground mb-2">Location</h3>
-                <p className="text-muted-foreground text-sm">
-                  Pickerings Road<br />
-                  Colombo 13<br />
-                  Sri Lanka
-                </p>
-              </Card>
+        {/* Contact Information Cards */}
+        <section className="py-12 -mt-16 relative z-20">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: Phone,
+                  title: "Call Us",
+                  line1: "+94 (11) 243 4567",
+                  line2: "+94 (11) 243 4568",
+                  action: "tel:+94112434567",
+                },
+                {
+                  icon: Mail,
+                  title: "Email Us",
+                  line1: "info@stbenedictscollege.lk",
+                  line2: "admissions@stbenedictscollege.lk",
+                  action: "mailto:info@stbenedictscollege.lk",
+                },
+                {
+                  icon: MapPin,
+                  title: "Visit Us",
+                  line1: "St. Benedict's College",
+                  line2: "Kotahena, Colombo 13",
+                  action: "#map",
+                },
+              ].map((item, idx) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + idx * 0.1 }}
+                >
+                  <Card className="p-8 text-center h-full hover:shadow-lg transition-all duration-300 border-none shadow-md bg-white">
+                    <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary">
+                      <item.icon className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                    <div className="space-y-1 text-muted-foreground">
+                      <p>
+                        <a
+                          href={item.action}
+                          className="hover:text-primary transition"
+                        >
+                          {item.line1}
+                        </a>
+                      </p>
+                      <p>{item.line2}</p>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
+          </div>
+        </section>
 
-            {/* Contact Form & Map */}
-            <div className="grid md:grid-cols-2 gap-8">
+        {/* Main Form & Map Section */}
+        <section className="py-20 lg:py-28">
+          <div className="container mx-auto px-4">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
               {/* Contact Form */}
-              <div>
-                <h2 className="text-3xl font-bold text-foreground mb-8">Send us a Message</h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <Label htmlFor="name">Full Name *</Label>
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="mb-8">
+                  <h2 className="text-3xl font-bold mb-4 flex items-center gap-3">
+                    <Send className="w-6 h-6 text-primary" />
+                    Send us a Message
+                  </h2>
+                  <p className="text-muted-foreground">
+                    Have a question? Fill out the form below and our team will
+                    get back to you shortly.
+                  </p>
+                </div>
+
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-6 bg-secondary/20 p-8 rounded-2xl border border-border"
+                >
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Your Name</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        placeholder="John Doe"
+                        className="bg-background"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email Address</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        placeholder="john@example.com"
+                        className="bg-background"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="subject">Subject</Label>
                     <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="mt-2"
+                      placeholder="Admissions Inquiry"
+                      className="bg-background"
                     />
                   </div>
-
-                  <div>
-                    <Label htmlFor="email">Email Address *</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="mt-2"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="message">Message *</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message</Label>
                     <Textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      rows={6}
-                      className="mt-2"
+                      rows={5}
+                      placeholder="How can we help you?"
+                      className="bg-background resize-none"
                     />
                   </div>
 
-                  <Button type="submit" className="w-full">
+                  <Button type="submit" size="lg" className="w-full text-lg">
                     Send Message
                   </Button>
 
                   {submitted && (
-                    <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                      <p className="text-green-800 text-sm">
-                        Thank you! Your message has been sent. We'll get back to you soon.
-                      </p>
+                    <div className="p-4 bg-green-50 text-green-700 rounded-lg text-center animate-pulse">
+                      Message sent successfully!
                     </div>
                   )}
                 </form>
-              </div>
+              </motion.div>
 
-              {/* Map & Info */}
-              <div>
-                <h2 className="text-3xl font-bold text-foreground mb-8">Visit Us</h2>
-                <Card className="overflow-hidden mb-8 h-96">
+              {/* Map & Office Hours */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="space-y-8"
+              >
+                <div
+                  id="map"
+                  className="rounded-2xl overflow-hidden shadow-xl border-4 border-white h-[400px] w-full bg-secondary"
+                >
+                  {/* Updated Map Embed for St. Benedict's College, Colombo 13 */}
                   <iframe
+                    src="https://maps.google.com/maps?q=St.%20Benedict's%20College,%20Colombo%2013&t=&z=15&ie=UTF8&iwloc=&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
+                    allowFullScreen
                     loading="lazy"
-                    allowFullScreen=""
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.348485943436!2d79.8545!3d6.927000000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae256f3e2b3e2b3%3A0x2b3e2b3e2b3e2b3e!2sSt.%20Benedict's%20College%2C%20Colombo%2013!5e0!3m2!1sen!2slk!4v1234567890"
-                  />
-                </Card>
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
+                </div>
 
-                <Card className="p-6">
-                  <h3 className="font-semibold text-foreground mb-4">Office Hours</h3>
-                  <div className="space-y-3">
-                    <div className="flex gap-2">
-                      <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <div className="text-sm text-muted-foreground">
-                        <p>Monday – Friday: 8:00 AM – 4:00 PM</p>
-                        <p>Saturday: 9:00 AM – 1:00 PM</p>
-                        <p>Sunday: Closed</p>
-                      </div>
+                <div className="bg-secondary/30 rounded-2xl p-8 border border-border">
+                  <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                    <Clock className="w-5 h-5 text-primary" />
+                    Office Hours
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex justify-between border-b border-border/50 pb-2">
+                      <span className="text-muted-foreground">
+                        Monday - Friday
+                      </span>
+                      <span className="font-medium">7:30 AM - 1:30 PM</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-2">
+                      <span className="text-muted-foreground">
+                        Saturday (Office)
+                      </span>
+                      <span className="font-medium">8:30 AM - 12:00 PM</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">
+                        Sunday & Holidays
+                      </span>
+                      <span className="font-medium text-red-500">Closed</span>
                     </div>
                   </div>
-                </Card>
-              </div>
-            </div>
+                </div>
 
-            {/* Departments */}
-            <div className="mt-16 pt-16 border-t border-border">
-              <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
-                Department Contacts
-              </h2>
-              <div className="grid md:grid-cols-3 gap-6">
-                {[
-                  {
-                    dept: 'Admissions',
-                    phone: '+94 (11) 254 1111',
-                    email: 'admissions@stbenedictscollege.lk',
-                  },
-                  {
-                    dept: 'Academic Affairs',
-                    phone: '+94 (11) 254 2222',
-                    email: 'academics@stbenedictscollege.lk',
-                  },
-                  {
-                    dept: 'Sports & Activities',
-                    phone: '+94 (11) 254 3333',
-                    email: 'sports@stbenedictscollege.lk',
-                  },
-                ].map((dept) => (
-                  <Card key={dept.dept} className="p-6">
-                    <h3 className="font-semibold text-foreground mb-4">{dept.dept}</h3>
-                    <div className="space-y-3 text-sm text-muted-foreground">
-                      <p>
-                        <span className="font-medium">Phone: </span>
-                        <a href={`tel:${dept.phone}`} className="hover:text-primary transition">
-                          {dept.phone}
-                        </a>
-                      </p>
-                      <p>
-                        <span className="font-medium">Email: </span>
-                        <a href={`mailto:${dept.email}`} className="hover:text-primary transition">
-                          {dept.email}
-                        </a>
-                      </p>
-                    </div>
-                  </Card>
-                ))}
-              </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 bg-primary/5 rounded-xl border border-primary/10 text-center">
+                    <GraduationCap className="w-8 h-8 text-primary mx-auto mb-2" />
+                    <h4 className="font-bold">Admissions</h4>
+                    <p className="text-sm text-muted-foreground">ext. 101</p>
+                  </div>
+                  <div className="p-4 bg-primary/5 rounded-xl border border-primary/10 text-center">
+                    <Trophy className="w-8 h-8 text-primary mx-auto mb-2" />
+                    <h4 className="font-bold">Sports</h4>
+                    <p className="text-sm text-muted-foreground">ext. 105</p>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </section>
